@@ -4,7 +4,7 @@ interface IUser extends Document {
   idCard: string
   name: string
   email: string
-  password: string,
+  password: string
   avatar: string
 }
 

@@ -5,8 +5,8 @@ interface IRequestProduct extends Document {
   user: string | ObjectId
   cellphone: string
   monthlyIncome: number
-  status: boolean,
-  createdAt: number,
+  status: boolean
+  createdAt: number
   updatedAt: number
 }
 

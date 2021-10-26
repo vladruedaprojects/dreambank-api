@@ -35,7 +35,7 @@ export class TokenJwt {
         if (payload.exp <= moment().unix()) {
           reject({
             status: 401,
-            message: 'El token a expirado'
+            message: 'Token expired!'
           })
         }
         resolve({ _id: payload.sub })

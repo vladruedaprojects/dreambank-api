@@ -34,6 +34,12 @@ class RequestProductController {
   }
 
   async newRequestProduct (req: Request, res: Response) : Promise<object> {
+    if (res.locals.user && res.locals.user._id) {
+      req.body.user = res.locals.user._id
+    } else {
+      return res.status(500).send({ message: 'Bad user', type: 'validation' })
+    }
+    
     const requestProduct: IRequestProduct = req.body
 
     try {

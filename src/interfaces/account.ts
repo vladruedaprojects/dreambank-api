@@ -8,7 +8,7 @@ interface IAccount extends Document {
   currency: string
   balance: number
   status: boolean
-  createdAt: number,
+  createdAt: number
   updatedAt: number
 }
 

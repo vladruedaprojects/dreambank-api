@@ -31,9 +31,6 @@ export class App {
       this.app.use(express.json())
         .use(cors({
           origin: process.env.ORIGIN || 'http://localhost:3000',
-          /* function (origin, callback) {
-            return callback(null, true)
-          }, */
           credentials: true
         }))
         .use((req, res, next) => {
