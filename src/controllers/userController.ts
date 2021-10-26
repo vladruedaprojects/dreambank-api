@@ -46,6 +46,10 @@ class UserController {
     }
     return res.status(400).send({ message: 'The user already exists', type: 'validation' })
   }
+
+  logout (req: Request, res: Response): object {
+    return res.status(200).send({ message: 'Logout ok.' })
+  }
   
 }
 
