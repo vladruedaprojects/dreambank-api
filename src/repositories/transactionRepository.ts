@@ -1,11 +1,16 @@
+import { ObjectId } from "mongoose"
 import { Service } from "typedi"
 import ITransaction from "../interfaces/transaction"
 import TransactionModel from "../models/transactionModel"
 
 @Service()
 class TransactionRepository {
-  async getTransactions (): Promise<object> {
-    return await TransactionModel.find({})
+  async getTransactions (userId: string | ObjectId): Promise<object> {
+    return await TransactionModel.find({ user: userId })
+  }
+
+  async getTransactionsByAccount (userId: string | ObjectId, accountId: string | ObjectId): Promise<object> {
+    return await TransactionModel.find({ user: userId, account: accountId })
   }
 
   async getTransaction (id: string): Promise<object> {

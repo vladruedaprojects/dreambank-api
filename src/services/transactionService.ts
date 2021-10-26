@@ -1,3 +1,4 @@
+import { ObjectId } from "mongoose"
 import { Service } from "typedi"
 import ITransaction from "../interfaces/transaction"
 import TransactionRepository from "../repositories/transactionRepository"
@@ -7,8 +8,12 @@ class TransactionService {
   
   constructor(private readonly transactionRepository: TransactionRepository) { }
 
-  async getTransactions (): Promise<object> {
-    return await this.transactionRepository.getTransactions()
+  async getTransactions (userId: string | ObjectId): Promise<object> {
+    return await this.transactionRepository.getTransactions(userId)
+  }
+
+  async getTransactionsByAccount (userId: string | ObjectId, accountId: string | ObjectId): Promise<object> {
+    return await this.transactionRepository.getTransactionsByAccount(userId, accountId)
   }
 
   async getTransaction (id: string): Promise<object> {

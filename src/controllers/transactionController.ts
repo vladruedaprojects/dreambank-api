@@ -12,8 +12,22 @@ class TransactionController {
   }
 
   async getTransactions (req: Request, res: Response) : Promise<object> {
+    const userId = res.locals.user._id
+
     try {
-      const transactions = await this.transactionService.getTransactions()
+      const transactions = await this.transactionService.getTransactions(userId)
+
+      return res.status(200).send(transactions)
+    } catch (error) {
+      return res.status(500).send({ message: 'Server error - query transactions', type: 'server' })
+    }
+  }
+
+  async getTransactionsByAccount (req: Request, res: Response) : Promise<object> {
+    const userId = res.locals.user._id
+
+    try {
+      const transactions = await this.transactionService.getTransactionsByAccount(userId, req.params.accountId)
 
       return res.status(200).send(transactions)
     } catch (error) {

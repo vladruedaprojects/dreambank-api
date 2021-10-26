@@ -11,16 +11,24 @@ const transactionController = Container.get(TransactionController)
 router
   .get('/all',
     (req, res, next) => new Authorization(req, res, next),
-    (req, res) =>transactionController.getTransactions(req, res))
+    (req, res) => transactionController.getTransactions(req, res))
+
+  .get('/account?:accountId',
+    (req, res, next) => new Authorization(req, res, next),
+    (req, res) => transactionController.getTransactionsByAccount(req, res))
+
   .get('/id?:transactionId',
     (req, res, next) => new Authorization(req, res, next),
     (req, res) => transactionController.getTransaction(req, res))
+
   .post('/new',
     (req, res, next) => new Authorization(req, res, next),
     (req, res) => transactionController.newTransaction(req, res))
+
   .put('/update/id?:transactionId',
     (req, res, next) => new Authorization(req, res, next),
     (req, res) => transactionController.updateTransaction(req, res))
+
   .delete('/id?:transactionId',
     (req, res, next) => new Authorization(req, res, next),
     (req, res) => transactionController.removeTransaction(req, res))
