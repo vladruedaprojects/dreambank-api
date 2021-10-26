@@ -36,11 +36,11 @@ export class App {
           }, */
           credentials: true
         }))
-        /* .use((req, res, next) => {
+        .use((req, res, next) => {
           res.header('Access-Control-Allow-Methods', 'POST, GET, DELETE, PUT, OPTIONS, HEAD')
           res.header('Access-Control-Allow-Headers', 'Authorization, X-API-KEY, Origin, X-Requested-With, Content-Type, Accept, Access-Control-Allow-Request-Method')
           next()
-        }) */
+        })
     }
 
     private routes() {
