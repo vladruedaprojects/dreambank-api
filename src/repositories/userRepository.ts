@@ -19,7 +19,8 @@ class UserRepository {
             _id: user._id,
             idCard: user.idCard,
             email: user.email,
-            name: user.name
+            name: user.name,
+            avatar: user.avatar
           }, token }
         } else {
           throw new Error('Invalid idCard or password')
