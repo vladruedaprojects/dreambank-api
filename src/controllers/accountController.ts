@@ -12,8 +12,10 @@ class AccountController {
   }
 
   async getAccounts (req: Request, res: Response) : Promise<object> {
+    const userId = res.locals.user._id
+
     try {
-      const accounts = await this.accountService.getAccounts()
+      const accounts = await this.accountService.getAccounts(userId)
 
       return res.status(200).send(accounts)
     } catch (error) {

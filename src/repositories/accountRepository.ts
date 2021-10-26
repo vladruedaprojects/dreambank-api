@@ -1,11 +1,12 @@
+import { ObjectId } from "mongoose"
 import { Service } from "typedi"
 import IAccount from "../interfaces/account"
 import AccountModel from "../models/accountModel"
 
 @Service()
 class AccountRepository {
-  async getAccounts (): Promise<object> {
-    return await AccountModel.find({})
+  async getAccounts (userId: string | ObjectId): Promise<object> {
+    return await AccountModel.find({ user: userId }).populate('product')
   }
 
   async getAccount (id: string): Promise<object> {

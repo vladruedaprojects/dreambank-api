@@ -1,3 +1,4 @@
+import { ObjectId } from "mongoose"
 import { Service } from "typedi"
 import IAccount from "../interfaces/account"
 import AccountRepository from "../repositories/accountRepository"
@@ -7,8 +8,8 @@ class AccountService {
   
   constructor(private readonly accountRepository: AccountRepository) { }
 
-  async getAccounts (): Promise<object> {
-    return await this.accountRepository.getAccounts()
+  async getAccounts (userId: string | ObjectId): Promise<object> {
+    return await this.accountRepository.getAccounts(userId)
   }
 
   async getAccount (id: string): Promise<object> {
