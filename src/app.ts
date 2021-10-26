@@ -30,7 +30,7 @@ export class App {
     private middlewares() {
       this.app.use(express.json())
         .use(cors({
-          origin: 'http://localhost:3000',
+          origin: process.env.ORIGIN || 'http://localhost:3000',
           /* function (origin, callback) {
             return callback(null, true)
           }, */
