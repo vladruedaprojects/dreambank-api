@@ -17,6 +17,10 @@ router
     (req, res, next) => new Authorization(req, res, next),
     (req, res) => transactionController.getTransactionsByAccount(req, res))
 
+  .post('/account?:accountId',
+    (req, res, next) => new Authorization(req, res, next),
+    (req, res) => transactionController.getTransactionsAverage(req, res))
+
   .get('/id?:transactionId',
     (req, res, next) => new Authorization(req, res, next),
     (req, res) => transactionController.getTransaction(req, res))

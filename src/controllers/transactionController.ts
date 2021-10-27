@@ -39,6 +39,20 @@ class TransactionController {
     }
   }
 
+  async getTransactionsAverage (req: Request, res: Response) : Promise<object> {
+    const userId = res.locals.user._id
+    const fromDate:string = req.body.fromDate
+    const toDate:string = req.body.toDate
+
+    try {
+      const transactionsAverage: number = await this.transactionService.getTransactionsAverage(userId, req.params.accountId, fromDate, toDate)
+
+      return res.status(200).send({ transactionsAverage })
+    } catch (error) {
+      return res.status(500).send({ message: 'Server error - query transactions', type: 'server' })
+    }
+  }
+
   async getTransaction (req: Request, res: Response) : Promise<object> {
     const id = req.params.transactionId
 

@@ -13,6 +13,31 @@ class TransactionRepository {
     return await TransactionModel.find({ user: userId, account: accountId })
   }
 
+  async getTransactionsAverage (
+    userId: string | ObjectId,
+    accountId: string | ObjectId,
+    fromDate: string,
+    toDate: string): Promise<number> {
+      const from = new Date(fromDate).getTime()
+      const to = new Date(toDate).getTime()
+
+      const transactions:ITransaction[] = await TransactionModel.find({
+        user: userId,
+        account: accountId,
+        createdAt: { $gte: from, $lt: to }
+      })
+      if (transactions.length > 0) {
+        const totalBalance:number = await transactions.reduce((totalBalance, transaction) => {
+          totalBalance += transaction.amount
+          return totalBalance
+        }, 0)
+
+        return (totalBalance / transactions.length)
+      }
+
+      return 0
+    }
+
   async getTransaction (id: string): Promise<ITransaction | null> {
     return TransactionModel.findById(id)
   }

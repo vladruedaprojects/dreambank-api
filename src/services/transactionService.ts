@@ -16,6 +16,15 @@ class TransactionService {
     return await this.transactionRepository.getTransactionsByAccount(userId, accountId)
   }
 
+  async getTransactionsAverage (
+    userId: string | ObjectId,
+    accountId: string | ObjectId,
+    fromDate: string,
+    toDate: string): Promise<number> {
+
+      return await this.transactionRepository.getTransactionsAverage(userId, accountId, fromDate, toDate)
+  }
+
   async getTransaction (id: string): Promise<ITransaction | null> {
     return await this.transactionRepository.getTransaction(id)
   }
