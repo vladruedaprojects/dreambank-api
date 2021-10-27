@@ -16,6 +16,10 @@ const TransactionSchema: Schema = new Schema<ITransaction>({
     type: String,
     required: true
   },
+  currency: {
+    type: String,
+    required: true
+  },
   amount: {
     type: Number,
     default: 0

@@ -5,6 +5,7 @@ interface ITransaction extends Document {
   account: string | ObjectId
   description: string
   amount: number
+  currency: string
   balance: number
   createdAt: number
   updatedAt: number
