@@ -7,23 +7,23 @@ class RequestProductService {
   
   constructor(private readonly requestProductRepository: RequestProductRepository) { }
 
-  async getRequestProducts (): Promise<object> {
+  async getRequestProducts (): Promise<IRequestProduct[]> {
     return await this.requestProductRepository.getRequestProducts()
   }
 
-  async getRequestProduct (id: string): Promise<object> {
+  async getRequestProduct (id: string): Promise<IRequestProduct | null> {
     return await this.requestProductRepository.getRequestProduct(id)
   }
 
-  async newRequestProduct (requestProduct: IRequestProduct): Promise<object> {
+  async newRequestProduct (requestProduct: IRequestProduct): Promise<IRequestProduct | null> {
     return await this.requestProductRepository.newRequestProduct(requestProduct)
   }
 
-  async updateRequestProduct (id: string, requestProduct: IRequestProduct): Promise<object> {
+  async updateRequestProduct (id: string, requestProduct: IRequestProduct): Promise<IRequestProduct | null> {
     return await this.requestProductRepository.updateRequestProduct(id, requestProduct)
   }
 
-  async removeRequestProduct (id: string): Promise<object> {
+  async removeRequestProduct (id: string): Promise<IRequestProduct | null> {
     return await this.requestProductRepository.removeRequestProduct(id)
   }
 

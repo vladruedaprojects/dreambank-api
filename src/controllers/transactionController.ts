@@ -1,14 +1,18 @@
 import { Request, Response } from "express"
 import { Service } from "typedi"
+import IAccount from "../interfaces/account"
 import ITransaction from "../interfaces/transaction"
+import AccountService from "../services/accountService"
 import TransactionService from "../services/transactionService"
 
 @Service()
 class TransactionController {
   private transactionService: TransactionService
+  private accountService: AccountService
 
-  constructor(transactionService: TransactionService) {
+  constructor(transactionService: TransactionService, accountService: AccountService) {
     this.transactionService = transactionService
+    this.accountService = accountService
   }
 
   async getTransactions (req: Request, res: Response) : Promise<object> {
@@ -51,11 +55,18 @@ class TransactionController {
     const transaction: ITransaction = req.body
 
     try {
-      const transactionCreated = await this.transactionService.newTransaction(transaction)
+      const account = await this.accountService.updateAccount(transaction.account, { $inc: { balance: transaction.amount}  })
 
-      return res.status(200).send(transactionCreated)
+      if (account) {
+        transaction.balance = account.balance
+        const transactionCreated = await this.transactionService.newTransaction(transaction)
+        if (transactionCreated) {
+          return res.status(200).send(transactionCreated)
+        }
+      }
+      return res.status(404).send({ message: 'Resource not found', type: 'validation' })
     } catch (error) {
-      return res.status(500).send({ message: 'Server error - query transactions', type: 'server' })
+      return res.status(500).send({ message: 'Server error - query transactions', error })
     }
   }
 

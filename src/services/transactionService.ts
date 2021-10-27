@@ -8,27 +8,27 @@ class TransactionService {
   
   constructor(private readonly transactionRepository: TransactionRepository) { }
 
-  async getTransactions (userId: string | ObjectId): Promise<object> {
+  async getTransactions (userId: string | ObjectId): Promise<ITransaction[] | null> {
     return await this.transactionRepository.getTransactions(userId)
   }
 
-  async getTransactionsByAccount (userId: string | ObjectId, accountId: string | ObjectId): Promise<object> {
+  async getTransactionsByAccount (userId: string | ObjectId, accountId: string | ObjectId): Promise<ITransaction[] | null> {
     return await this.transactionRepository.getTransactionsByAccount(userId, accountId)
   }
 
-  async getTransaction (id: string): Promise<object> {
+  async getTransaction (id: string): Promise<ITransaction | null> {
     return await this.transactionRepository.getTransaction(id)
   }
 
-  async newTransaction (transaction: ITransaction): Promise<object> {
+  async newTransaction (transaction: ITransaction): Promise<ITransaction | null> {
     return await this.transactionRepository.newTransaction(transaction)
   }
 
-  async updateTransaction (id: string, transaction: ITransaction): Promise<object> {
+  async updateTransaction (id: string, transaction: ITransaction): Promise<ITransaction | null> {
     return await this.transactionRepository.updateTransaction(id, transaction)
   }
 
-  async removeTransaction (id: string): Promise<object> {
+  async removeTransaction (id: string): Promise<ITransaction | null> {
     return await this.transactionRepository.removeTransaction(id)
   }
 

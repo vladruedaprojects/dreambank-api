@@ -8,23 +8,23 @@ class AccountService {
   
   constructor(private readonly accountRepository: AccountRepository) { }
 
-  async getAccounts (userId: string | ObjectId): Promise<object> {
+  async getAccounts (userId: string | ObjectId): Promise<IAccount[]> {
     return await this.accountRepository.getAccounts(userId)
   }
 
-  async getAccount (id: string): Promise<object> {
+  async getAccount (id: string | ObjectId): Promise<IAccount | null> {
     return await this.accountRepository.getAccount(id)
   }
 
-  async newAccount (account: IAccount): Promise<object> {
+  async newAccount (account: IAccount): Promise<IAccount | null> {
     return await this.accountRepository.newAccount(account)
   }
 
-  async updateAccount (id: string, account: IAccount): Promise<object> {
-    return await this.accountRepository.updateAccount(id, account)
+  async updateAccount (id: string | ObjectId, updates: object): Promise<IAccount | null> {
+    return await this.accountRepository.updateAccount(id, updates)
   }
 
-  async removeAccount (id: string): Promise<object> {
+  async removeAccount (id: string): Promise<IAccount | null> {
     return await this.accountRepository.removeAccount(id)
   }
 

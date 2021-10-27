@@ -4,49 +4,31 @@ import RequestProductModel from "../models/requestProductModel"
 
 @Service()
 class RequestProductRepository {
-  async getRequestProducts (): Promise<object> {
+  async getRequestProducts (): Promise<IRequestProduct[]> {
     return await RequestProductModel.find({})
   }
 
-  async getRequestProduct (id: string): Promise<object> {
-    try {
-      const requestProduct = await RequestProductModel.findById({ id })
-      return { requestProduct }
-    } catch (error) {
-      console.log(error)
-      throw error
-    }
+  async getRequestProduct (id: string): Promise<IRequestProduct | null> {
+    return await RequestProductModel.findById(id)
   }
 
-  async newRequestProduct (requestProductReq: IRequestProduct): Promise<object> {
+  async newRequestProduct (requestProductReq: IRequestProduct): Promise<IRequestProduct | null> {
     const requestProduct = new RequestProductModel(requestProductReq)
 
-    try {
-      const requestProductStored = await requestProduct.save()
-      return { requestProduct: requestProductStored }
-    } catch (error) {
-      console.log(error)
-      throw error
-    }
+    return await requestProduct.save()
   }
 
-  async updateRequestProduct (id: string, requestProductReq: IRequestProduct): Promise<object> {
-    try {
-      const requestProductUpdated = await RequestProductModel.findByIdAndUpdate(id, requestProductReq, { new: true })
-      return { requestProduct: requestProductUpdated }
-    } catch (error) {
-      console.log(error)
-      throw error
-    }
+  async updateRequestProduct (id: string, requestProductReq: IRequestProduct): Promise<IRequestProduct | null> {
+    return await RequestProductModel.findByIdAndUpdate(id, requestProductReq, { new: true })
   }
 
-  async removeRequestProduct (id: string): Promise<object> {
+  async removeRequestProduct (id: string): Promise<IRequestProduct | null> {
     try {
       const requestProduct = await RequestProductModel.findById(id)
 
       if (requestProduct) {
         const requestProductRemoved = await requestProduct.remove()
-        return { requestProduct: requestProductRemoved }
+        return requestProductRemoved
       }
       throw new Error('RequestProduct Not found')
     } catch (error) {

@@ -4,53 +4,35 @@ import ProductModel from "../models/productModel"
 
 @Service()
 class ProductRepository {
-  async getProducts (): Promise<object> {
+  async getProducts (): Promise<IProduct[]> {
     return await ProductModel.find({})
   }
 
-  async getProduct (id: string): Promise<object> {
-    try {
-      const product = await ProductModel.findById({ id })
-      return { product }
-    } catch (error) {
-      console.log(error)
-      throw error
-    }
+  async getProduct (id: string): Promise<IProduct | null> {
+    return await ProductModel.findById(id)
   }
 
-  async newProduct (productReq: IProduct): Promise<object> {
+  async newProduct (productReq: IProduct): Promise<IProduct | null> {
     const product = new ProductModel(productReq)
 
-    try {
-      const productStored = await product.save()
-      return { product: productStored }
-    } catch (error) {
-      console.log(error)
-      throw error
-    }
+    return await product.save()
   }
 
-  async updateProduct (id: string, productReq: IProduct): Promise<object> {
-    try {
-      const productUpdated = await ProductModel.findByIdAndUpdate(id, productReq, { new: true })
-      return { product: productUpdated }
-    } catch (error) {
-      console.log(error)
-      throw error
-    }
+  async updateProduct (id: string, productReq: IProduct): Promise<IProduct | null> {
+      return await ProductModel.findByIdAndUpdate(id, productReq, { new: true })
   }
 
-  async removeProduct (id: string): Promise<object> {
+  async removeProduct (id: string): Promise<IProduct | null> {
+    // eslint-disable-next-line no-useless-catch
     try {
       const product = await ProductModel.findById(id)
 
       if (product) {
         const productRemoved = await product.remove()
-        return { product: productRemoved }
+        return productRemoved
       }
       throw new Error('Product Not found')
     } catch (error) {
-      console.log(error)
       throw error
     }
   }
